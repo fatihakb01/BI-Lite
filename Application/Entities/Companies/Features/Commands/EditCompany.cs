@@ -1,11 +1,11 @@
 using Application.Core;
-using Application.DTOs;
+using Application.Entities.Companies.DTOs;
 using AutoMapper;
 using Domain.Entities;
 using Domain.Interfaces;
 using MediatR;
 
-namespace Application.Features.Companies.Commands;
+namespace Application.Entities.Companies.Features.Commands;
 
 public class EditCompany
 {

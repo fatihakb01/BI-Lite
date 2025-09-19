@@ -1,4 +1,4 @@
-namespace Application.DTOs;
+namespace Application.Entities.Companies.DTOs;
 
 public class CompanyDto : BaseCompanyDto
 {

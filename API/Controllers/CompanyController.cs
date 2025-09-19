@@ -1,6 +1,6 @@
-using Application.DTOs;
-using Application.Features.Companies.Commands;
-using Application.Features.Companies.Queries.GetBusiness;
+using Application.Entities.Companies.DTOs;
+using Application.Entities.Companies.Features.Commands;
+using Application.Entities.Companies.Features.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

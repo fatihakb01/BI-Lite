@@ -1,6 +1,4 @@
-using System;
-
-namespace Application.DTOs;
+namespace Application.Entities.Companies.DTOs;
 
 public class CreateCompanyDto : BaseCompanyDto
 {

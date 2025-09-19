@@ -1,9 +1,9 @@
-using Application.Features.Companies.Commands;
+using Application.Entities.Companies.Features.Commands;
 using Domain.Interfaces;
 using Domain.Entities;
 using FluentValidation;
 
-namespace Application.Validators;
+namespace Application.Entities.Companies.Validators;
 
 public class CreateCompanyValidator : AbstractValidator<CreateCompany.Command>
 {

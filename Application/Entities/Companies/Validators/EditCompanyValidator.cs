@@ -1,9 +1,9 @@
-using Application.Features.Companies.Commands;
+using Application.Entities.Companies.Features.Commands;
 using Domain.Entities;
 using Domain.Interfaces;
 using FluentValidation;
 
-namespace Application.Validators;
+namespace Application.Entities.Companies.Validators;
 
 public class EditCompanyValidator : AbstractValidator<EditCompany.Command>
 {

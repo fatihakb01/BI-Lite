@@ -1,8 +1,7 @@
-using System;
-using Application.DTOs;
+using Application.Entities.Companies.DTOs;
 using FluentValidation;
 
-namespace Application.Validators;
+namespace Application.Entities.Companies.Validators;
 
 public class CompanyDtoValidator : AbstractValidator<BaseCompanyDto>
 {
