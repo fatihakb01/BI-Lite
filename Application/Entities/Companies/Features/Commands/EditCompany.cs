@@ -20,8 +20,7 @@ public class EditCompany
     {
         public async Task<Result<EditCompanyDto>> Handle(Command request, CancellationToken cancellationToken)
         {
-            var company = await repository
-                .GetByIdAsync(request.Id, cancellationToken);
+            var company = await repository.GetByIdAsync(request.Id, cancellationToken);
 
             if (company == null)
                 return Result<EditCompanyDto>.Failure("Company not found", 404);

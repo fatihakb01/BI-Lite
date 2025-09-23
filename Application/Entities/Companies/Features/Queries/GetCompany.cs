@@ -19,8 +19,7 @@ public class GetCompany
     {
         public async Task<Result<CompanyDto>> Handle(Query request, CancellationToken cancellationToken)
         {
-            var company = await repository
-                .GetByIdAsync(request.Id, cancellationToken);
+            var company = await repository.GetByIdAsync(request.Id, cancellationToken);
 
             if (company == null)
                 return Result<CompanyDto>.Failure("Company not found", 404);

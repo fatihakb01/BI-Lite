@@ -45,16 +45,16 @@ public static class DataSeeder
             // Customers
             var customers = new List<Customer>
             {
-                new Customer { FirstName = "Alice", LastName = "Smith", Email = "alice@example.com", Company = company },
-                new Customer { FirstName = "Bob", LastName = "Jones", Email = "bob@example.com", Company = company },
-                new Customer { FirstName = "Chris", LastName = "Brown", Email = "chris@example.com", Company = company },
-                new Customer { FirstName = "Karen", LastName = "Smith", Email = "karen@example.com", Company = company },
-                new Customer { FirstName = "Ivan", LastName = "Johnson", Email = "ivan@example.com", Company = company },
-                new Customer { FirstName = "Richard", LastName = "Miller", Email = "richard@example.com", Company = company },
-                new Customer { FirstName = "Jeff", LastName = "Walton", Email = "jeff@example.com", Company = company },
-                new Customer { FirstName = "Marc", LastName = "Wilson", Email = "marc@example.com", Company = company },
-                new Customer { FirstName = "Tom", LastName = "Davis", Email = "tom@example.com", Company = company },
-                new Customer { FirstName = "Charles", LastName = "King", Email = "charles@example.com", Company = company }
+                new Customer { DisplayName = "Albert Heijn", LegalName = "Albert Heijn B.V.", Email = "info@albertheijn.nl", Company = company },
+                new Customer { DisplayName = "Jumbo", LegalName = "Jumbo Supermarkten B.V.", Email = "info@jumbo.nl", Company = company },
+                new Customer { DisplayName = "Aldi", LegalName = "Aldi Nederland B.V.", Email = "contact@aldi.nl", Company = company },
+                new Customer { DisplayName = "Action", LegalName = "Action Nederland B.V.", Email = "info@action.nl", Company = company },
+                new Customer { DisplayName = "Bol.com", LegalName = "Bol.com B.V.", Email = "support@bol.com", Company = company },
+                new Customer { DisplayName = "Coolblue", LegalName = "Coolblue B.V.", Email = "service@coolblue.nl", Company = company },
+                new Customer { DisplayName = "MediaMarkt", LegalName = "MediaMarkt Nederland B.V.", Email = "contact@mediamarkt.nl", Company = company },
+                new Customer { DisplayName = "Hema", LegalName = "Hema B.V.", Email = "info@hema.nl", Company = company },
+                new Customer { DisplayName = "Blokker", LegalName = "Blokker B.V.", Email = "service@blokker.nl", Company = company },
+                new Customer { DisplayName = "Gamma", LegalName = "Gamma Nederland B.V.", Email = "info@gamma.nl", Company = company }
             };
 
             // Transactions

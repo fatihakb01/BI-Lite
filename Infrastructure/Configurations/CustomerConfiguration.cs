@@ -11,11 +11,11 @@ public class CustomerConfiguration : IEntityTypeConfiguration<Customer>
     {
         builder.HasKey(c => c.Id);
 
-        builder.Property(c => c.FirstName)
+        builder.Property(c => c.DisplayName)
             .IsRequired()
             .HasMaxLength(100);
 
-        builder.Property(c => c.LastName)
+        builder.Property(c => c.LegalName)
             .HasMaxLength(100);
 
         builder.Property(c => c.Email)
@@ -33,5 +33,9 @@ public class CustomerConfiguration : IEntityTypeConfiguration<Customer>
             .WithOne(t => t.Customer)
             .HasForeignKey(t => t.CustomerId)
             .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasIndex(c => new { c.CompanyId, c.DisplayName }).IsUnique();
+        builder.HasIndex(c => new { c.CompanyId, c.LegalName }).IsUnique();
+        builder.HasIndex(c => new { c.CompanyId, c.Email }).IsUnique();
     }
 }
