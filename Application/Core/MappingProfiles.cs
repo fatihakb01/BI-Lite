@@ -2,6 +2,7 @@ using AutoMapper;
 using Domain.Entities;
 using Application.Entities.Companies.DTOs;
 using Application.Entities.Customers.DTOs;
+using Application.Entities.Transactions.DTOs;
 
 
 namespace Application.Core;
@@ -21,5 +22,11 @@ public class MappingProfiles : Profile
         CreateMap<Customer, EditCustomerDto>();
         CreateMap<CreateCustomerDto, Customer>();
         CreateMap<EditCustomerDto, Customer>();
+
+        // Transaction entity
+        CreateMap<Transaction, TransactionDto>();
+        CreateMap<Transaction, EditTransactionDto>();
+        CreateMap<CreateTransactionDto, Transaction>();
+        CreateMap<EditTransactionDto, Transaction>();
     }
 }

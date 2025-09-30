@@ -1,4 +1,3 @@
-using System;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -15,8 +14,11 @@ public class TransactionConfiguration : IEntityTypeConfiguration<Transaction>
             .IsRequired()
             .HasColumnType("decimal(18,2)");
 
+        builder.Property(t => t.TransactionDate)
+            .IsRequired();
+
         builder.ToTable(p =>
-            p.HasCheckConstraint("CK_Transaction_TotalAmount", "[TotalAmount] >= 0")
+            p.HasCheckConstraint("CK_Transaction_TransactionDate", "[TransactionDate] <= SYSUTCDATETIME()")
         );
 
         builder.Property(t => t.PaymentMethod)

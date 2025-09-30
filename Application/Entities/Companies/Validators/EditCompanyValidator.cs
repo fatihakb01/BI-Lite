@@ -1,6 +1,4 @@
-using System.Data;
 using Application.Entities.Companies.Features.Commands;
-using Application.Validators.Common;
 using Domain.Entities;
 using Domain.Interfaces;
 using FluentValidation;
@@ -32,7 +30,7 @@ public class EditCompanyValidator : AbstractValidator<EditCompany.Command>
                 if (existing == null) return true;
                 if (existing.Name == name) return true;
                 return await uniquenessChecker.IsUniqueAsync(c => c.Name == name, ct);
-            })
+            })           
             .WithMessage("Company name must be unique");
     }
 }

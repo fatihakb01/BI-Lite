@@ -25,6 +25,8 @@ public static class DependencyInjection
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
         services.AddTransient<ExceptionMiddleware>();
 
+        services.AddSingleton<IDateTimeProvider, SystemDateTimeProvider>();
+
         return services;
     }
 }

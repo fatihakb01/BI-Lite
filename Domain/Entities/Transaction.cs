@@ -6,7 +6,7 @@ public class Transaction
 {
     public Guid Id { get; set; } = Guid.NewGuid();
     public decimal TotalAmount { get; set; }
-    public DateTime TransactionDate { get; set; } = DateTime.UtcNow;
+    public DateTime TransactionDate { get; set; } 
     public string? PaymentMethod { get; set; }
     public string? Notes { get; set; }
 
