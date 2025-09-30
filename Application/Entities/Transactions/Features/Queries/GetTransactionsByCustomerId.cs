@@ -24,7 +24,7 @@ public class GetTransactionsByCustomerId
                 .FindAsync(x => x.CustomerId == request.CustomerId, cancellationToken);
 
             if (transactions == null || !transactions.Any())
-                return Result<List<TransactionDto>>.Failure("Transactions not found", 404);
+                return Result<List<TransactionDto>>.Failure("No transactions found for this customer", 404);
 
             var transactionDtos = mapper.Map<List<TransactionDto>>(transactions);
 
