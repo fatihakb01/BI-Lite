@@ -14,6 +14,12 @@ public class CustomerController(IMediator mediator) : BaseApiController(mediator
         return HandleResult(await Mediator.Send(new GetCustomer.Query { Id = id }));
     }
 
+    [HttpGet("company/{companyId}")]
+    public async Task<ActionResult<CustomerDto>> GetCustomerByCompanyId(Guid companyId)
+    {
+        return HandleResult(await Mediator.Send(new GetCustomerByCompanyId.Query { CompanyId = companyId }));
+    }    
+
     [HttpGet]
     public async Task<ActionResult<List<CustomerDto>>> GetCustomers()
     {
