@@ -14,6 +14,12 @@ public class TransactionController(IMediator mediator) : BaseApiController(media
         return HandleResult(await Mediator.Send(new GetTransaction.Query { Id = id }));
     }
 
+    [HttpGet("customer/{customerId}")]
+    public async Task<ActionResult<TransactionDto>> GetTransactionsByCustomerId(Guid customerId)
+    {
+        return HandleResult(await Mediator.Send(new GetTransactionsByCustomerId.Query { CustomerId = customerId }));
+    }    
+
     [HttpGet]
     public async Task<ActionResult<List<TransactionDto>>> GetTransactions()
     {
