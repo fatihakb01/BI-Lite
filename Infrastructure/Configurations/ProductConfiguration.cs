@@ -1,4 +1,3 @@
-using System;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -24,7 +23,7 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
         builder.Property(p => p.Price)
             .IsRequired()
             .HasColumnType("decimal(18,2)");
-        
+
         builder.ToTable(p =>
             p.HasCheckConstraint("CK_Product_Price", "[Price] >= 0")
         );
@@ -38,5 +37,8 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
             .WithOne(t => t.Product)
             .HasForeignKey(t => t.ProductId)
             .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasIndex(p => new { p.CompanyId, p.Name }).IsUnique();
+        builder.HasIndex(p => new { p.CompanyId, p.SKU }).IsUnique();
     }
 }

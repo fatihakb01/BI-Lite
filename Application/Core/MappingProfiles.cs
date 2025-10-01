@@ -3,6 +3,7 @@ using Domain.Entities;
 using Application.Entities.Companies.DTOs;
 using Application.Entities.Customers.DTOs;
 using Application.Entities.Transactions.DTOs;
+using Application.Entities.Products.DTOs;
 
 
 namespace Application.Core;
@@ -28,5 +29,11 @@ public class MappingProfiles : Profile
         CreateMap<Transaction, EditTransactionDto>();
         CreateMap<CreateTransactionDto, Transaction>();
         CreateMap<EditTransactionDto, Transaction>();
+
+        // Product entity
+        CreateMap<Product, ProductDto>();
+        CreateMap<Product, EditProductDto>();
+        CreateMap<CreateProductDto, Product>();
+        CreateMap<EditProductDto, Product>();
     }
 }
