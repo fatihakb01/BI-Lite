@@ -11,7 +11,7 @@ namespace API.Middleware;
 /// </summary>
 /// <param name="logger">Logger for writing exception logs.</param>
 /// <param name="env">Hosting environment used to determine whether to show stack traces.</param>
-public class ExceptionMiddleware(ILogger<ExceptionMiddleware> logger, IHostEnvironment env) 
+public class ExceptionMiddleware(/*ILogger<ExceptionMiddleware> logger,*/ IHostEnvironment env) 
     : IMiddleware
 {
     /// <summary>
@@ -31,11 +31,7 @@ public class ExceptionMiddleware(ILogger<ExceptionMiddleware> logger, IHostEnvir
             await HandleValidationException(context, ex);
         }
         catch (Exception ex)
-        {
-            // Temporary logging
-            var innerMessage = ex.InnerException?.Message;
-            logger.LogError(ex, "An unhandled exception occurred: {Inner}", innerMessage);
-            
+        {   
             await HandleException(context, ex);
         }
     }
@@ -47,12 +43,13 @@ public class ExceptionMiddleware(ILogger<ExceptionMiddleware> logger, IHostEnvir
     /// <param name="ex">The exception that occurred.</param>
     private async Task HandleException(HttpContext context, Exception ex)
     {
-        logger.LogError(ex, ex.Message);
         context.Response.ContentType = "application/json";
         context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+        var innerMessage = ex.InnerException?.Message;
+        //logger.LogError(ex, "An unhandled exception occurred: {Inner}", innerMessage);
 
         var response = env.IsDevelopment()
-            ? new AppException(context.Response.StatusCode, ex.Message, ex.StackTrace)
+            ? new AppException(context.Response.StatusCode, ex.Message, innerMessage)
             : new AppException(context.Response.StatusCode, ex.Message, null);
 
         var options = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
