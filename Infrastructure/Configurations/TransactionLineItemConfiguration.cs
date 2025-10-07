@@ -1,4 +1,3 @@
-using System;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -9,7 +8,7 @@ public class TransactionLineItemConfiguration : IEntityTypeConfiguration<Transac
 {
     public void Configure(EntityTypeBuilder<TransactionLineItem> builder)
     {
-        builder.HasKey(tl => new { tl.TransactionId, tl.ProductId });
+        builder.HasKey(tl => tl.Id);
 
         builder.Property(tl => tl.Quantity)
             .IsRequired();
@@ -31,5 +30,7 @@ public class TransactionLineItemConfiguration : IEntityTypeConfiguration<Transac
             .WithMany(p => p.TransactionLineItems)
             .HasForeignKey(tl => tl.ProductId)
             .OnDelete(DeleteBehavior.NoAction);
+
+        builder.HasIndex(tl => new { tl.TransactionId, tl.ProductId }).IsUnique();
     }
 }

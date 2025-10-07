@@ -17,6 +17,10 @@ public class Repository<T>(DataContext context)
     {
         return await context.Set<T>().Where(predicate).ToListAsync(cancellationToken);
     }
+    public async Task<bool> ExistsAsync(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken)
+    {
+        return await context.Set<T>().AnyAsync(predicate, cancellationToken);
+    }
 
     public async Task<T?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {

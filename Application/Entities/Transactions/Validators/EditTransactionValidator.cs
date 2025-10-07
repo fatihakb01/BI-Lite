@@ -8,6 +8,6 @@ public class EditTransactionValidator : AbstractValidator<EditTransaction.Comman
 {
     public EditTransactionValidator(IDateTimeProvider clock)
     {
-        // RuleFor(x => x.TransactionDto).SetValidator(new TransactionDtoValidator(clock));
+        RuleFor(x => x.TransactionDto).SetValidator(new TransactionDtoValidator(clock));
     }
 }

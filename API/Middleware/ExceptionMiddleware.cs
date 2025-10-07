@@ -32,6 +32,10 @@ public class ExceptionMiddleware(ILogger<ExceptionMiddleware> logger, IHostEnvir
         }
         catch (Exception ex)
         {
+            // Temporary logging
+            var innerMessage = ex.InnerException?.Message;
+            logger.LogError(ex, "An unhandled exception occurred: {Inner}", innerMessage);
+            
             await HandleException(context, ex);
         }
     }
