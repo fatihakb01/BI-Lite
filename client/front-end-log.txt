@@ -1,0 +1,19 @@
+Some of the installed packages:
+- npm install axios react-router-dom @tanstack/react-query
+- npm i react-router
+- npm install axios
+- npm install axios @tanstack/react-query
+- npm install -D vite-plugin-mkcert & npm i -D @vitejs/plugin-react-swc & dotnet dev-certs https --trust
+- npm install @tanstack/react-query
+- npm install lucide-react
+- npm install @mui/material @emotion/react @emotion/styled
+- npm install @mui/icons-material @mui/material @emotion/styled @emotion/react
+- npm install @mui/x-data-grid
+
+🧩 1. What Axios Interceptors Are and Why They’re Useful
+An Axios interceptor lets you “intercept” every request or response before it’s actually sent or processed 
+— so you can inject common logic globally instead of repeating it in every API call.
+There are two main types:
+- Request interceptors → run before the request leaves your app
+- Response interceptors → run after the response comes back
+

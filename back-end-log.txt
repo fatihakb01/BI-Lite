@@ -1,0 +1,103 @@
+Set-up project
+- dotnet new sln = creating a solution file template.
+- dotnet new webapi -n API -controllers = creating a webapi folder/template (folder called API).
+- dotnet new classlib -n Application = creating an application class folder.
+- dotnet new classlib -n Domain = creating a domain class folder.
+- dotnet new classlib -n Infrastructure = creating a infrastructure class folder.
+- dotnet new xunit -n Tests = creating a Tests project for automated testing.
+- dotnet sln add API = add API folder to solution file.
+- dotnet sln add Application = add Application folder to solution file.
+- dotnet sln add Domain = add Domain folder to solution file.
+- dotnet sln add Infrastructure = add Infrastructure folder to solution file.
+- dotnet sln add Tests = add Tests folder to solution file.
+- npm create vite@latest client -- --template react-ts
+
+Adding references
+- dotnet add Application/Application.csproj reference Domain/Domain.csproj
+- dotnet add Infrastructure/Infrastructure.csproj reference Application/Application.csproj
+- dotnet add Infrastructure/Infrastructure.csproj reference Domain/Domain.csproj
+- dotnet add API/API.csproj reference Application/Application.csproj
+- dotnet add API/API.csproj reference Infrastructure/Infrastructure.csproj
+- dotnet add Tests/Tests.csproj reference Application/Application.csproj
+- dotnet add Tests/Tests.csproj reference API/API.csproj
+- dotnet add Tests/Tests.csproj reference Infrastructure/Infrastructure.csproj
+
+Domain Entities Relationships
+- Business → Users (1-to-many)
+- Business → Products (1-to-many)
+- Business → Customers (1-to-many)
+- Customer → Transactions (1-to-many)
+- Transaction → Products (many-to-many via TransactionLineItem)
+
+DataContext.cs
+- This class builds the model for the database.
+- In here, we also specify the assembly, which is a runtime unit consisting of types 
+(such as classes and interfaces) and other resources.
+- In C#, an assembly is the smallest deployment unit used, and is a component in .NET. In Java, it is a JAR file.
+
+The Infrastructure configurations are recognized because:
+- ApplyConfigurationsFromAssembly(typeof(DataContext).Assembly) (can be found in DataContext.cs) 
+scans the assembly for all IEntityTypeConfiguration<T>.
+- All the config classes implement IEntityTypeConfiguration<T>.
+- AddInfrastructure registers DataContext, and EF Core builds the model at runtime using those configs.
+
+Install once:
+- dotnet tool install --global dotnet-ef
+
+Check version:
+- dotnet ef --version
+
+Performing a migration:
+- dotnet ef migrations add InitialCreate --project Infrastructure --startup-project API
+
+Remove previous migration:
+- dotnet ef migrations remove --project Infrastructure --startup-project API
+
+Drop databae:
+- dotnet ef database drop -p Infrastructure -s API
+- (dotnet ef database update --project Infrastructure --startup-project API)
+--> not necessary because of await context.Database.MigrateAsync() inside Program.cs.
+
+Add some packages to the Application project
+- dotnet add Application package MediatR
+- dotnet add Application package FluentValidation.DependencyInjectionExtensions
+
+Generic type constraint
+- 'where TRequest : IRequest<TResponse>' inside 'public class ValidationBehavior<TRequest, TResponse>....'
+- It means:
+    - TRequest must implement IRequest<TResponse>.
+    - This ensures that only MediatR requests (commands or queries) can pass through this pipeline behavior.
+    - Without this, someone could accidentally pass a random type into ValidationBehavior.
+
+What does the comma mean in typeof(IPipelineBehavior<,>)?
+- IPipelineBehavior<,> is an open generic interface. 
+The comma simply says there are two generic arguments (like <TRequest, TResponse>), 
+but you’re not specifying them here because the DI container will fill them in dynamically.
+
+Dependency Injection
+- Dependency Injection (DI) is a software design pattern where an 
+object receives its required components (dependencies) from an 
+external source instead of creating them itself, 
+leading to more modular, flexible, and testable code.
+
+What does this IServiceCollection services mean?
+- 'public static IServiceCollection AddApplication(this IServiceCollection services)'
+- The this keyword in a method parameter means this is an extension method.
+- It extends IServiceCollection, so you can call it like this: builder.Services.AddApplication();
+- Instead of: Application.DependencyInjection.AddApplication(builder.Services);
+
+Domain models vs. DTOs
+- Domain models (Domain.Business, User, etc.) represent your database entities and business rules.
+- DTOs (BusinessDto, CreateActivityDto, EditActivityDto, etc.) represent what your API actually sends and receives.
+
+What’s the difference between Scoped and Transient?
+- Scoped → one instance per HTTP request.
+    - Example: DbContext → you want a single context per request to avoid multiple database connections.
+- Transient → a new instance every time it’s requested.
+    - Example: lightweight stateless services like ExceptionMiddleware.
+- Singleton (bonus) → one instance for the entire application lifetime.
+    - Example: configuration, caching.
+- Rule of thumb:
+    - Use Scoped for anything working with DbContext or request-specific state.
+    - Use Transient for lightweight services without state.
+    - Use Singleton sparingly for global state/config.
