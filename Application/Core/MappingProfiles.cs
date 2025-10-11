@@ -33,7 +33,6 @@ public class MappingProfiles : Profile
 
         // Product entity
         CreateMap<Product, ProductDto>();
-        CreateMap<Product, EditProductDto>();
         CreateMap<CreateProductDto, Product>();
         CreateMap<EditProductDto, Product>();
 
